@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop">
+
+    <aop:aspectj-autoproxy/>
+    
+    
+    	<aop:config>
+			<aop:pointcut id="loggingPointcut" expression="execution(* com.packt.spring.aop.dao.*.*(..))" />
+			<aop:advisor advice-ref="loggingAdvice"
+				pointcut-ref="loggingPointcut" id="loggingInterceptorAdvisor" />
+		</aop:config>
+		
+	<bean id="loggingAdvice" class="com.packt.spring.aop.advisor.LoggingAdvisor" />	
+    
+    <bean id="sessionCheckAspect" class="com.packt.spring.aop.aspects.SessionCheck">
+    </bean>	
+    
+    <bean id="permissionCheckAspect" class="com.packt.spring.aop.aspects.PermissionCheck">
+    </bean>
+    
+    <!-- for point-cut example of matching bean id or name -->
+    <bean id="batchOperation" class="com.packt.spring.aop.service.BatchOperationService"></bean>
+    
+    <bean id="userSessionReport" class="com.packt.spring.aop.report.UserSessionReport"></bean>
+    
+    <bean id="sessionTrackerDao" class="com.packt.spring.aop.dao.SessionTrackerDao"></bean>
+    
+</beans>

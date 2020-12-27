@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- All your bean and its configuration metadata goes here -->
+
+	<!-- Example of autowire byName  -->
+    <bean id="userService" class="com.packet.spring.autowire.di.UserService">
+    </bean>
+    <bean id="accountService" class="com.packet.spring.autowire.di.AccountService" autowire="byName">
+    </bean>
+    
+    
+    <!-- Example of autowire byType  -->
+    <bean id="emailService" class="com.packet.spring.autowire.di.EmailService">
+    </bean>
+    <bean id="hrService" class="com.packet.spring.autowire.di.HRService" autowire="byType">
+    </bean>
+    
+    
+    <!-- Example of autowire by Constructor  -->
+    <bean id="studentService" class="com.packet.spring.autowire.di.StudentService">
+    </bean>
+    <bean id="examService" class="com.packet.spring.autowire.di.ExamService" autowire="constructor">
+    	<constructor-arg value="Science Exam"/>
+    </bean>
+</beans>

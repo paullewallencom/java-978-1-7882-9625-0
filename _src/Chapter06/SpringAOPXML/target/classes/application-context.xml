@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop">
+
+    <aop:config>
+    	<aop:pointcut id="employeeServiceMethods"
+    		expression="execution(* com.packet.spring.aop.service.*.*(..))" />
+    	
+    	<aop:pointcut id="hrServiceMethods"
+    		expression="execution(* com.packet.spring.aop.service.HRService.*(..))" />
+    	
+    	<!-- Enable either start + end advise or around advise (alone) for LogginAspect below -->		
+		<aop:aspect id="myLoggin" ref="loggingAspect">
+			<aop:before pointcut-ref="employeeServiceMethods" method="printStartLog"/>
+			<aop:after pointcut-ref="employeeServiceMethods" method="printEndLog"/>
+			<!-- <aop:around pointcut-ref="employeeServiceMethods" method="printAroundLog"/> -->
+		</aop:aspect>
+		
+		<aop:aspect id="sendMsg" ref="sendMsgAspect">
+			<aop:after-returning  pointcut-ref="hrServiceMethods"
+			 returning="retVal"
+			 method="sendMessageOnSuccessExit"/>
+			<aop:after-throwing  pointcut-ref="hrServiceMethods" method="sendMessageOnErrorExit"/>
+		</aop:aspect>
+		
+    </aop:config>
+    
+    <bean id="loggingAspect" class="com.packet.spring.aop.aspects.LoggingAspect">
+    </bean>
+    
+    <bean id="sendMsgAspect" class="com.packet.spring.aop.aspects.SendMessage">
+    </bean>
+    
+    <bean id="employeeService" class="com.packet.spring.aop.service.EmployeeService">
+    </bean>
+    
+    <bean id="hrService" class="com.packet.spring.aop.service.HRService">
+    </bean>
+    
+</beans>

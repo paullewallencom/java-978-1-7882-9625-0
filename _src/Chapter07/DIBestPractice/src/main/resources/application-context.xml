@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- IoC without proper DI -->
+    <bean id="employeeService" class="com.packt.spring.ioc.without.di.EmployeeService">
+    </bean>
+
+    <bean id="accountService" class="com.packt.spring.ioc.without.di.AccountService">
+    </bean>
+    
+    <bean id="hrService" class="com.packt.spring.ioc.without.di.HRService">
+    </bean>
+    
+    
+    <!-- IoC with proper DI -->
+    <bean id="employeeService1" class="com.packt.spring.ioc.with.di.EmployeeService">
+    	<constructor-arg name="accountService" ref="accountService1" />
+    	<constructor-arg name="hrService" ref="hrService1" />
+    </bean>
+
+    <bean id="accountService1" class="com.packt.spring.ioc.with.di.AccountService">
+    </bean>
+    
+    <bean id="hrService1" class="com.packt.spring.ioc.with.di.HRService">
+    </bean>
+    
+</beans>

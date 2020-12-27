@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- All your bean and its configuration metadata goes here -->
+    <bean id="employeeService" class="com.packet.spring.constructor.di.EmployeeService">
+        <constructor-arg ref="logger"/> 
+    </bean>
+
+    <bean id="logger" class="com.packet.spring.constructor.di.Logger">
+    </bean>
+    
+    <bean id="camera" class="com.packet.spring.constructor.di.Camera">
+    	<!-- Without Order -->
+    	<constructor-arg type="java.lang.String" value="normal"/>
+    	<constructor-arg type="boolean" value="true" />
+    	<constructor-arg type="int" value="12" />
+    	<constructor-arg type="boolean" value="false" />
+    	
+    	<!-- With Order -->
+    	<!-- <constructor-arg type="java.lang.String" value="normal" index="1"/>
+    	<constructor-arg type="boolean" value="true" index="3"/>
+    	<constructor-arg type="int" value="12" index="0"/>
+    	<constructor-arg type="boolean" value="false" index="2"/> -->
+    </bean>
+    
+</beans>
